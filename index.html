@@ -64,12 +64,7 @@
             <label>Telefone *</label><input type="tel" id="telefone" oninput="maskTel(this)" required maxlength="15">
             <label>Data *</label><input type="date" id="dataRecebimento" required>
 
-            <h3>Condições geral do Veículo</h3>
-            <table class="check-table">
-                <thead><tr><th style="text-align:left">Item</th><th>Ok</th><th>Não Ok</th><th>N/A</th></tr></thead>
-                <tbody id="corpoTabela"></tbody>
-            </table>
-
+            
             <label>Algum Dano constatado?</label>
             <select id="dano" onchange="document.getElementById('campoObs').style.display=(this.value=='Sim'?'block':'none')">
                 <option value="Não">Não</option><option value="Sim">Sim</option>
@@ -163,10 +158,7 @@
     function maskTel(i) { let v = i.value.replace(/\D/g, ""); v = v.replace(/^(\d{2})(\d)/g, "($1) $2"); v = v.replace(/(\d)(\d{4})$/, "$1-$2"); i.value = v; }
     function maskCNPJ(i) { let v = i.value.replace(/\D/g, ""); v = v.replace(/^(\d{2})(\d)/, "$1.$2"); v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3"); v = v.replace(/\.(\d{3})(\d)/, ".$1/$2"); v = v.replace(/(\d{4})(\d)/, "$1-$2"); i.value = v; }
 
-        const labels = ["Foto Frente", "Foto Lateral Direita", "Foto Traseira", "Foto Lateral Esquerda", "Foto Placa", "Foto Chassi", "Foto Painel/KM (LIGADO)", "Foto Banco (assento)", "Foto Interna do Baú", "Foto Roda/Pneu (DIANTEIRO)","Foto Roda/Pneu (Traseiro Direito)", "Foto Roda/Pneu (Traseiro Esquerdo)" ,"Foto Estação de Recarga","Foto Kit Ferramentas"];
-    itens.forEach(it => { document.getElementById('corpoTabela').innerHTML += `<tr><td style="text-align:left">${it}</td><td><input type="radio" name="${it}" value="Ok" required></td><td><input type="radio" name="${it}" value="Não Ok"></td><td><input type="radio" name="${it}" value="N/A"></td></tr>`; });
-
-    const fLabels = ["Foto de Frente", "Foto Lateral Direita (motorista)", "Foto Traseira", "Foto Lateral Esquerda (passageiro)", "Foto da Placa", "Foto do Chassi", "Foto do Painel/KM"];
+    const fLabels = ["Foto Frente", "Foto Lateral Direita", "Foto Traseira", "Foto Lateral Esquerda", "Foto Placa", "Foto Chassi", "Foto Painel/KM (LIGADO)", "Foto Banco (assento)", "Foto Interna do Baú", "Foto Roda/Pneu (DIANTEIRO)", "Foto Roda/Pneu (Traseiro Direito)", "Foto Roda/Pneu (Traseiro Esquerdo)", "Foto Estação de Recarga", "Foto Kit Ferramentas"];
     fLabels.forEach((l, i) => { 
         document.getElementById('gridFotos').innerHTML += `<div class="photo-item"><label>${l}</label><input type="file" accept="image/*" capture="camera" onchange="compactar(this, ${i+1})" required><img id="v${i+1}" class="preview-img"></div>`; 
     });
@@ -178,7 +170,7 @@
             const img = new Image();
             img.onload = () => {
                 const cv = document.createElement('canvas');
-                const max = 700; let w = img.width, h = img.height;
+                const max = 800; let w = img.width, h = img.height;
                 if (w > max) { h *= max / w; w = max; }
                 cv.width = w; cv.height = h;
                 cv.getContext('2d').drawImage(img, 0, 0, w, h);
@@ -197,10 +189,8 @@
         if(pad.isEmpty()) return alert("Assinatura obrigatória!");
         document.getElementById("loading").style.display = "flex";
         
-        const checks = {};
-        itens.forEach(it => { const el = document.querySelector(`input[name="${it}"]:checked`); checks[it] = el ? el.value : "N/A"; });
-        
-        const payload = { ...fotos, checklistItems: checks, placa: document.getElementById("placa").value, chassi: document.getElementById("chassi").value, modelo: document.getElementById("modeloVeiculo").value, km: document.getElementById("km").value, empresa: document.getElementById("empresa").value, cnpj: document.getElementById("cnpj").value, cliente: document.getElementById("cliente").value, telefone: document.getElementById("telefone").value, dataRecebimento: document.getElementById("dataRecebimento").value, dano: document.getElementById("dano").value, desc: document.getElementById("desc").value || "Sem obs", assinatura: pad.toDataURL(), localizacao: userLoc, timestamp: new Date().toLocaleString("pt-BR") };
+       
+        const payload = { ...fotos, placa: document.getElementById("placa").value, chassi: document.getElementById("chassi").value, modelo: document.getElementById("modeloVeiculo").value, km: document.getElementById("km").value, empresa: document.getElementById("empresa").value, cnpj: document.getElementById("cnpj").value, cliente: document.getElementById("cliente").value, telefone: document.getElementById("telefone").value, dataRecebimento: document.getElementById("dataRecebimento").value, dano: document.getElementById("dano").value, desc: document.getElementById("desc").value || "Sem obs", assinatura: pad.toDataURL(), localizacao: userLoc, timestamp: new Date().toLocaleString("pt-BR") };
 
         try {
             // URL DO SEU SCRIPT GOOGLE
@@ -220,5 +210,4 @@
 </script>
 </body>
 </html>
-
 
