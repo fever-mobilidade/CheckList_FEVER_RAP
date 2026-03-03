@@ -48,7 +48,7 @@
     <div id="step-form">
         <form id="formFever">
             <label>Placa do veículo *</label><input type="text" id="placa" required maxlength="8" placeholder="ex: ABC1D23">
-            <label>Chassi (8 últimos digitos - no caminhão está no vidro, no triciclo está na coluna de direção) *</label><input type="text" id="chassi" maxlength="8" required placeholder="ex: RA100256">
+            <label>Chassi (8 últimos digitos - Está na coluna de direção) *</label><input type="text" id="chassi" maxlength="8" required placeholder="ex: RA100256">
             <label>Modelo do veículo *</label>
             <select id="modeloVeiculo" required>
                 <option value="" disabled selected>Selecione</option>
@@ -204,7 +204,7 @@
         try {
             // URL DO SEU SCRIPT GOOGLE
 
-            const scriptURL = "https://script.google.com/macros/s/AKfycbxWhbJUG5vY3QK_wFFqygyeONOZT6_dEAXaxdheX8wabBvpHMEEBWAi3tC_SDEJcW46Zg/exec";
+            const scriptURL = "https://script.google.com/macros/s/AKfycbzm3wxNksB0BeZ2Lw9_VYFxJa0BW7B3VXXxnGikdkXT0MRR64sZK_hRUwgY_SaNCpONnA/exec";
 
             await fetch(scriptURL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
             document.getElementById("loading").style.display = "none";
