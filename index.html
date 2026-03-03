@@ -62,7 +62,7 @@
             <label>CNPJ Empresa *</label><input type="text" id="cnpj" oninput="maskCNPJ(this)" required maxlength="18">
             <label>Nome do Usuário *</label><input type="text" id="cliente" required maxlength="30">
             <label>Telefone *</label><input type="tel" id="telefone" oninput="maskTel(this)" required maxlength="15">
-            <label>Data *</label><input type="date" id="dataRecebimento" required>
+            <label>Data do Checklist do veículo *</label><input type="date" id="dataRecebimento" required>
 
             
             <label>Algum Dano constatado?</label>
@@ -167,7 +167,7 @@
     function maskTel(i) { let v = i.value.replace(/\D/g, ""); v = v.replace(/^(\d{2})(\d)/g, "($1) $2"); v = v.replace(/(\d)(\d{4})$/, "$1-$2"); i.value = v; }
     function maskCNPJ(i) { let v = i.value.replace(/\D/g, ""); v = v.replace(/^(\d{2})(\d)/, "$1.$2"); v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3"); v = v.replace(/\.(\d{3})(\d)/, ".$1/$2"); v = v.replace(/(\d{4})(\d)/, "$1-$2"); i.value = v; }
 
-    const fLabels = ["Foto Frente", "Foto Lateral Direita", "Foto Traseira", "Foto Lateral Esquerda", "Foto Placa", "Foto Chassi", "Foto Painel/KM (LIGADO)", "Foto Banco (assento)", "Foto Interna do Baú", "Foto Roda/Pneu (DIANTEIRO)", "Foto Roda/Pneu (Traseiro Direito)", "Foto Roda/Pneu (Traseiro Esquerdo)", "Foto Estação de Recarga", "Foto Kit Ferramentas"];
+    const fLabels = ["Foto Frente", "Foto Lateral Direita", "Foto Traseira", "Foto Lateral Esquerda", "Foto Placa", "Foto Chassi", "Foto Painel/KM (LIGADO)", "Foto Banco (assento)", "Foto Interna do Baú", "Foto Roda/Pneu (DIANTEIRO)", "Foto Roda/Pneu (Traseiro Direito)", "Foto Roda/Pneu (Traseiro Esquerdo)", "Foto Estação de Recarga portátil", "Foto Kit Ferramentas"];
     fLabels.forEach((l, i) => { 
         document.getElementById('gridFotos').innerHTML += `<div class="photo-item"><label>${l}</label><input type="file" accept="image/*" capture="camera" onchange="compactar(this, ${i+1})" required><img id="v${i+1}" class="preview-img"></div>`; 
     });
